@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #252323;
+}
+
+li{
+    list-style-type: none;
+}
+
+a{
+    text-decoration:none;
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover{
+    color: rgb(185, 185, 185);
+}
+
+.headerLine{
+    width: auto;
+}
+
+.dropdown-toggle:active{
+    color: rgb(185, 185, 185);
+}
+
+.searchInput{
+    width: 30%;
+}
+
+#controlPanel a{
+    color: white;
+}
