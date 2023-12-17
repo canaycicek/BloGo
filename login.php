@@ -1,7 +1,8 @@
 <?php include "views/_header.php"; ?>
 <?php include "views/_navbar.php"; ?>
 
-<div class="container" style="min-height: 61vh;">
+<!-- Login Page Start -->
+<div class="container" style="min-height: 100vh;">
     <div class="card mx-auto" style="width: 27rem;">
         <div class="card-body">
             <form action="" method="POST" novalidate>
@@ -31,5 +32,9 @@
         </div>
     </div>
 </div>
+
+  
+
+<!-- Login Page End -->
 
 <?php include "views/_footer.php"; ?>

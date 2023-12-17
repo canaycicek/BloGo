@@ -5,15 +5,15 @@
 
     <!-- Slider Start -->
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
+        <div class="carousel-inner" style="height: 50vh;">
             <div class="carousel-item active">
-                <img src="https://picsum.photos/2000/600?random=12968" class="img-fluid" alt="picture">
+                <img src="https://picsum.photos/800/600?random=12968" class="img-fluid sliderImg" alt="picture">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/2000/600?random=12969" class="img-fluid" alt="picture">
+                <img src="https://picsum.photos/800/600?random=12969" class="img-fluid sliderImg" alt="picture">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/2000/600?random=12960" class="img-fluid" alt="picture">
+                <img src="https://picsum.photos/800/600?random=12960" class="img-fluid sliderImg" alt="picture">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -55,7 +55,7 @@
                                     <p class="p-0 m-0">22:30</p>
                                 </span>
                             </div>
-                            <hr style="width: 2px; height: 30px; background-color: white; padding: 0; margin: 0;">
+                            <hr style="width: 2px; height: 30px;" class="bg-white p-0 m-0">
                             <a class="link-light link-offset-2 link-underline link-underline-opacity-0 fst-italic fw-light" href="#">Can Aycicek</a>
                         </div>
                         <h2 class="text-light fs-1">
@@ -72,7 +72,7 @@
             </div>
             <!-- Head Content End -->
 
-            <hr class="my-4" style="color: white;">
+            <hr class="my-4">
 
             <!-- Body Content -->
             <h2 class="text-light my-4 text-center">Son Yüklenenler</h2>
@@ -88,7 +88,7 @@
                                 <p class="p-0 m-0">20:15</p>
                             </span>
                         </div>
-                        <hr style="width: 2px; height: 25px; background-color: white; padding: 0; margin: 0;">
+                        <hr style="width: 2px; height: 25px;" class="bg-white p-0 m-0">
                         <a class="link-light link-offset-2 link-underline link-underline-opacity-0 fst-italic fw-light" href="#">Onur Aycicek</a>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                                 <p class="p-0 m-0">20:15</p>
                             </span>
                         </div>
-                        <hr style="width: 2px; height: 25px; background-color: white; padding: 0; margin: 0;">
+                        <hr style="width: 2px; height: 25px;" class="bg-white p-0 m-0">
                         <a class="link-light link-offset-2 link-underline link-underline-opacity-0 fst-italic fw-light" href="#">Ahmet Yeşil</a>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                                 <p class="p-0 m-0">20:15</p>
                             </span>
                         </div>
-                        <hr style="width: 2px; height: 25px; background-color: white; padding: 0; margin: 0;">
+                        <hr style="width: 2px; height: 25px;" class="bg-white p-0 m-0">
                         <a class="link-light link-offset-2 link-underline link-underline-opacity-0 fst-italic fw-light" href="#">Tufan Öztürk</a>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                                 <p class="p-0 m-0">20:15</p>
                             </span>
                         </div>
-                        <hr style="width: 2px; height: 25px; background-color: white; padding: 0; margin: 0;">
+                        <hr style="width: 2px; height: 25px;" class="bg-white p-0 m-0">
                         <a class="link-light link-offset-2 link-underline link-underline-opacity-0 fst-italic fw-light" href="#">Melis Kuş</a>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                                 <p class="p-0 m-0">20:15</p>
                             </span>
                         </div>
-                        <hr style="width: 2px; height: 25px; background-color: white; padding: 0; margin: 0;">
+                        <hr style="width: 2px; height: 25px;" class="bg-white p-0 m-0">
                         <a class="link-light link-offset-2 link-underline link-underline-opacity-0 fst-italic fw-light" href="#">Melis Kuş</a>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                                 <p class="p-0 m-0">20:15</p>
                             </span>
                         </div>
-                        <hr style="width: 2px; height: 25px; background-color: white; padding: 0; margin: 0;">
+                        <hr style="width: 2px; height: 25px;" class="bg-white p-0 m-0">
                         <a class="link-light link-offset-2 link-underline link-underline-opacity-0 fst-italic fw-light" href="#">Melis Kuş</a>
                     </div>
                 </div>

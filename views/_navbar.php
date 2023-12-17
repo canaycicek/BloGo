@@ -1,5 +1,5 @@
 <!-- Navigation Bar Start -->
-<nav class="navbar navbar-expand-lg bg-black">
+<nav class="navbar navbar-expand-lg bg-black sticky-top">
     <div class="container-fluid d-flex justify-content-between">
         <ul class="navbar-nav mb-2 mb-lg-0 d-flex column-gap-2">
             <li class="nav-item">
@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Bloglar</a>
+                <a class="nav-link" href="blogs.php">Bloglar</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,9 +45,13 @@
             </li>
         </ul>
         <form class="input-group searchInput">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control" id="searchBox" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" id="btnSearch" type="submit">Search</button>
         </form>
+        <!-- <div class="search-box">
+            <button class="btn-search"><i class="fas fa-search"></i></button>
+            <input type="text" class="input-search" placeholder="Type to Search...">
+        </div> -->
         <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center column-gap-2">
             <li class="nav-item">
                 <a class="nav-link" href="profile.php">
