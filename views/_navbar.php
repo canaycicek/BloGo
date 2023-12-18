@@ -9,30 +9,27 @@
                     </svg>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="blogs.php">Bloglar</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                     Kategoriler
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Yemek</a></li>
-                    <li><a class="dropdown-item" href="#">Spor</a></li>
-                    <li><a class="dropdown-item" href="#">Eğitim</a></li>
-                    <li><a class="dropdown-item" href="#">Siyaset</a></li>
-                    <li><a class="dropdown-item" href="#">Bilim</a></li>
-                    <li><a class="dropdown-item" href="#">Oyun</a></li>
-                    <li><a class="dropdown-item" href="#">Yemek</a></li>
-                    <li><a class="dropdown-item" href="#">Spor</a></li>
-                    <li><a class="dropdown-item" href="#">Eğitim</a></li>
-                    <li><a class="dropdown-item" href="#">Siyaset</a></li>
-                    <li><a class="dropdown-item" href="#">Bilim</a></li>
-                    <li><a class="dropdown-item" href="#">Oyun</a></li>
+                    <li><a class="dropdown-item" href="category.php">Yemek</a></li>
+                    <li><a class="dropdown-item" href="category.php">Spor</a></li>
+                    <li><a class="dropdown-item" href="category.php">Eğitim</a></li>
+                    <li><a class="dropdown-item" href="category.php">Siyaset</a></li>
+                    <li><a class="dropdown-item" href="category.php">Bilim</a></li>
+                    <li><a class="dropdown-item" href="category.php">Oyun</a></li>
+                    <li><a class="dropdown-item" href="category.php">Yemek</a></li>
+                    <li><a class="dropdown-item" href="category.php">Spor</a></li>
+                    <li><a class="dropdown-item" href="category.php">Eğitim</a></li>
+                    <li><a class="dropdown-item" href="category.php">Siyaset</a></li>
+                    <li><a class="dropdown-item" href="category.php">Bilim</a></li>
+                    <li><a class="dropdown-item" href="category.php">Oyun</a></li>
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Popüler Blogerlar</a>
+                <a class="nav-link" href="populer.php">Popüler Blogerlar</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Blog Control</a>
