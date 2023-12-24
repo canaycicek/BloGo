@@ -3,7 +3,7 @@ include "views/_header.php";
 include "views/_navbar.php";
 include "views/_side-navbar.php";
 
-include "classes/db.class.php";
+include "../../libs/connect.php";
 include "classes/blog.class.php";
 include "classes/functions.class.php";
 ?>
@@ -15,7 +15,12 @@ include "classes/functions.class.php";
 
     $title = $description = $sdescription = $image = $url = "";
     $title_err = $description_err = $sdescription_err = $image_err = $url_err = "";
+    
+    $id = $_GET["id"];
+    $result = $blog->getBlogById($id);
 
+    
+    
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         // validate title
@@ -60,47 +65,49 @@ include "classes/functions.class.php";
             $url = $functions->control_input($input_url);
         }
 
+        $is_active = $functions->control_input(isset($_POST["is_active"])?1:0);
+
         if(empty($title_err) && empty($sdescription_err) && empty($description_err) && empty($url_err)){
-            if($blog->createBlog($title, $sdescription, $description, $url)){
+            if($blog->updateBlog($id, $title, $sdescription, $description, $category, $url, $is_active)){
                 header("Location: blog-control.php");
             }else{
                 echo "hata";
             }
         }
     }
-
 ?>
 
 <div class="w-100 d-flex justify-content-center">
     <form class="w-50 my-3" action="" method="POST" novalidate>
 
         <div class="mb-3 form-floating">
-            <input type="text" name="title" id="title" class="form-control <?= (!empty($title_err)) ? 'is-invalid' : '' ?>" placeholder="Başlık" value="<?= $title; ?>">
+            <input type="text" name="title" id="title" class="form-control <?= (!empty($title_err)) ? 'is-invalid' : '' ?>" placeholder="Başlık" value="<?= $result->title; ?>">
             <label for="floatingInput" class="form-label">Başlık</label>
             <span class="invalid-feedback"><?php echo $title_err ?></span>
         </div>
 
         <div class="mb-3 form-floating">
-            <input type="text" name="sdescription" id="sdescription" class="form-control <?= (!empty($sdescription_err)) ? 'is-invalid' : '' ?>" placeholder="Kısa Açıklama" value="<?= $sdescription; ?>">
+            <input type="text" name="sdescription" id="sdescription" class="form-control <?= (!empty($sdescription_err)) ? 'is-invalid' : '' ?>" placeholder="Kısa Açıklama" value="<?= $result->short_description; ?>">
             <label for="floatingInput" class="form-label">Kısa Açıklama</label>
             <span class="invalid-feedback"><?php echo $sdescription_err ?></span>
         </div>
 
         <div class="mb-3 form-floating">
-            <input type="text" name="description" id="description" class="form-control <?= (!empty($description_err)) ? 'is-invalid' : '' ?>" placeholder="Açıklama" value="<?= $description; ?>">
+            <input type="text" name="description" id="description" class="form-control <?= (!empty($description_err)) ? 'is-invalid' : '' ?>" placeholder="Açıklama" value="<?= $result->description; ?>">
             <label for="floatingInput" class="form-label">Açıklama</label>
             <span class="invalid-feedback"><?php echo $description_err ?></span>
         </div>
 
         <div class="mb-3 form-floating">
-            <input type="text" name="url" id="url" class="form-control <?= (!empty($url_err)) ? 'is-invalid' : '' ?>" placeholder="Url" value="<?= $url; ?>">
+            <input type="text" name="url" id="url" class="form-control <?= (!empty($url_err)) ? 'is-invalid' : '' ?>" placeholder="Url" value="<?= $result->url; ?>">
             <label for="floatingInput" class="form-label">Url</label>
             <span class="invalid-feedback"><?php echo $url_err ?></span>
         </div>
 
         <div class="mb-3">
-            <input type="checkbox" name="isActive" id="isActive">
-            <label for="isActive">Aktif</label>
+            <input type="checkbox" name="is_active" id="is_active"
+            <?php if($result->is_active) {echo "checked";}?>>
+            <label for="is_active">Aktif</label>
         </div>
 
         <button class="btn btn-primary w-100 py-2 mt-3" type="submit">Güncelle</button>

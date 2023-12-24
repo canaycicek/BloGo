@@ -3,7 +3,7 @@ include "views/_header.php";
 include "views/_navbar.php";
 include "views/_side-navbar.php";
 
-include "classes/db.class.php";
+include "../../libs/connect.php";
 include "classes/blog.class.php";
 include "classes/functions.class.php";
 ?>
@@ -31,13 +31,13 @@ include "classes/functions.class.php";
                     <th style="width: 150px;"></th>
                 </tr>
             </thead>
+            <tbody class="table-group-divider">
             <?php foreach($blog->getBlogs() as $item): ?>
-                <tbody class="table-group-divider">
                     <tr>
                         <th><?= $item->id ?></th>
                         <td><?= $item->title ?></td>
                         <td><?= $item->url ?></td>
-                        <td>Siyaset</td>
+                        <td></td>
                         <td>
                             <?php if($item->is_active == 1): ?>
                                 <i class="fa-solid fa-check"></i>
@@ -47,11 +47,11 @@ include "classes/functions.class.php";
                         </td>
                         <td>
                             <a class="btn btn-primary" href="edit-blog.php?id=<?= $item->id ?>">Düzenle</a>
-                            <a class="btn btn-danger">Sil</a>
+                            <a class="btn btn-danger" href="delete-blog.php?id=<?= $item->id ?>">Sil</a>
                         </td>
                     </tr>
-                </tbody>
             <?php endforeach; ?>
+            </tbody>
         </table>
     </div>
 

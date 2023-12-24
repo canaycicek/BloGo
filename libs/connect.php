@@ -1,10 +1,22 @@
 <?php
 
+    require_once realpath(__DIR__ . '/../vendor/autoload.php');
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+    $dotenv->load();
+    
     class Db{
-        private $host = "localhost";
-        private $user = "root";
-        private $password = "";
-        private $dbName = "blogo";
+        private $host = null;
+        private $user = null;
+        private $password = null;
+        private $dbName = null;
+
+        function __construct(){
+            $this->host = $_ENV["HOSTNAME"];
+            $this->user = $_ENV["USERNAME"];
+            $this->password = $_ENV["PASSWORD"];
+            $this->dbName = $_ENV["DBNAME"];
+        }
+        
 
         protected function connect(){
             try{
