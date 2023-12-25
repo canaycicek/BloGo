@@ -1,6 +1,6 @@
 <?php
-    include "../views/_header.php"; 
-    include "../views/_navbar.php";
+include_once "../views/_header.php";
+include_once "../views/_navbar.php";
 ?>
 <!-- Register Page Start -->
 <div class="container mt-4" style="min-height: 100vh;">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="mb-3 form-floating">
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Parola Tekrar">               
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Parola Tekrar">
                     <label for="floatingInput" class="form-label">Parola Tekrar</label>
                 </div>
 
@@ -46,4 +46,4 @@
 </div>
 <!-- Register Page End -->
 
-<?php include "../views/_footer.php"; ?>
+<?php include_once "../views/_footer.php"; ?>

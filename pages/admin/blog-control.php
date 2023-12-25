@@ -1,11 +1,11 @@
 <?php
-include "views/_header.php";
-include "views/_navbar.php";
-include "views/_side-navbar.php";
+include_once "views/_header.php";
+include_once "views/_navbar.php";
+include_once "views/_side-navbar.php";
 
-include "../../libs/connect.php";
-include "classes/blog.class.php";
-include "classes/functions.class.php";
+include_once "../../libs/connect.php";
+include_once "classes/blog.class.php";
+include_once "classes/functions.class.php";
 ?>
 
 <?php $blog = new Blog(); ?>
@@ -37,7 +37,7 @@ include "classes/functions.class.php";
                         <th><?= $item->id ?></th>
                         <td><?= $item->title ?></td>
                         <td><?= $item->url ?></td>
-                        <td></td>
+                        <td><?= $item->name ?></td>
                         <td>
                             <?php if($item->is_active == 1): ?>
                                 <i class="fa-solid fa-check"></i>
@@ -63,4 +63,4 @@ include "classes/functions.class.php";
 
 <?php endif; ?>
 
-<?php include "views/_footer.php"; ?>
+<?php include_once "views/_footer.php"; ?>

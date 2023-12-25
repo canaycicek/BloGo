@@ -1,7 +1,18 @@
 <?php
-include "views/_header.php";
-include "views/_navbar.php";
-include "views/_side-navbar.php";
+include_once "views/_header.php";
+include_once "views/_navbar.php";
+include_once "views/_side-navbar.php";
+
+include_once "../../libs/connect.php";
+include_once "classes/blog.class.php";
+include_once "classes/functions.class.php";
+include_once "classes/category.class.php";
+?>
+
+<?php
+$blog = new Blog();
+$categories = new Category();
+$functions = new Functions();
 ?>
 
 <div class="w-100 mx-5 mt-3">
@@ -11,6 +22,7 @@ include "views/_side-navbar.php";
             Yeni Kategori
         </a>
     </div>
+    <!-- Category Table Start -->
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -21,42 +33,27 @@ include "views/_side-navbar.php";
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <tr>
-                <th>1</th>
-                <td>Siyaset</td>
-                <td>
-                    <i class="fa-solid fa-check"></i>
-                </td>
-                <td>
-                    <a class="btn btn-primary">Düzenle</a>
-                    <a class="btn btn-danger">Sil</a>
-                </td>
-            </tr>
-            <tr>
-                <th>2</th>
-                <td>Spor</td>
-                <td>
-                    <i class="fa-solid fa-check"></i>
-                </td>
-                <td>
-                    <a class="btn btn-primary">Düzenle</a>
-                    <a class="btn btn-danger">Sil</a>
-                </td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td>Yemek</td>
-                <td>
-                    <i class="fa-solid fa-xmark"></i>
-                </td>
-                <td>
-                    <a class="btn btn-primary">Düzenle</a>
-                    <a class="btn btn-danger">Sil</a>
-                </td>
-            </tr>
+            <?php foreach ($categories->getCategories() as $item): ?>
+                <tr>
+                    <th><?= $item->id ?></th>
+                    <td><?= $item->name ?></td>
+                    <td>
+                        <?php if($item->is_active == 1): ?>
+                            <i class="fa-solid fa-check"></i>
+                        <?php else: ?>
+                            <i class="fa-solid fa-xmark"></i>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary">Düzenle</a>
+                        <a class="btn btn-danger">Sil</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
+    <!-- Category Table End -->
 </div>
 
 
-<?php include "views/_footer.php"; ?>
+<?php include_once "views/_footer.php"; ?>

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-black sticky-top">
     <div class="container-fluid">
         <i class="fa-solid fa-bars white me-4 fa-xl"></i>
-        <img class="navbar-brand" src="<?= $_ENV["URL_PREFIX"]?>/assets/img/svg/navbar.svg"></img>
+        <img class="navbar-brand" alt="image" src="<?= $_ENV["URL_PREFIX"] ?>/assets/img/svg/navbar.svg"></img>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
