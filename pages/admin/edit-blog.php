@@ -22,7 +22,6 @@ $id = $_GET["id"];
 $result = $blog->getBlogById($id);
 
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // validate title
@@ -79,8 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $is_active = $functions->control_input(isset($_POST["is_active"]) ? 1 : 0);
     $category_id = $functions->control_input($_POST["category"]);
     // update blog
-    if (empty($title_err) && empty($sdescription_err) && empty($description_err)
-     && empty($category_err) && empty($url_err)) {
+    if (
+        empty($title_err) && empty($sdescription_err) && empty($description_err)
+        && empty($category_err) && empty($url_err)
+    ) {
         if ($blog->updateBlog($id, $title, $sdescription, $description, $category_id, $url, $is_active)) {
             header("Location: blog-control.php");
         } else {
@@ -89,7 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <div class="w-100 d-flex justify-content-center">
     <form class="w-50 my-3" action="" method="POST" novalidate>
 
@@ -102,16 +102,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="mb-3 form-floating">
             <input type="text" name="sdescription" id="sdescription" class="form-control
-            <?= (!empty($sdescription_err)) ? 'is-invalid' : '' ?>" placeholder="Kısa Açıklama"
-             value="<?= $result->short_description; ?>">
+            <?= (!empty($sdescription_err)) ? 'is-invalid' : '' ?>" placeholder="Kısa Açıklama" value="<?= $result->short_description; ?>">
             <label for="floatingInput" class="form-label">Kısa Açıklama</label>
             <span class="invalid-feedback"><?php echo $sdescription_err ?></span>
         </div>
 
         <div class="mb-3 form-floating">
             <input type="text" name="description" id="description" class="form-control
-            <?= (!empty($description_err)) ? 'is-invalid' : '' ?>" placeholder="Açıklama"
-             value="<?= $result->description; ?>">
+            <?= (!empty($description_err)) ? 'is-invalid' : '' ?>" placeholder="Açıklama" value="<?= $result->description; ?>">
             <label for="floatingInput" class="form-label">Açıklama</label>
             <span class="invalid-feedback"><?php echo $description_err ?></span>
         </div>
@@ -119,12 +117,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-group mb-3">
             <select name="category" id="category" class="form-select form-select-lg
             <?= (!empty($category_err)) ? 'is-invalid' : '' ?>" aria-label="Large select example">
-                <option value="empty">Kategori Seçiniz</option>
-                <option><?= $result->category_id ?></option>
                 <?php foreach ($categories->getCategories() as $item) : ?>
-                    <option value="<?= $item->id ?>" <?= (isset($_POST['category'])
-                     && $_POST['category'] == $item->id) && $result->category_id ? 'selected' : '' ?>>
-                     <?= $item->name ?></option>
+                    <option value="<?= $item->id ?>" <?= (isset($_POST['category']) && $_POST['category'] == $item->id || $result->id == $item->id) ? 'selected' : '' ?>>
+                        <?= $item->name ?></option>
                 <?php endforeach; ?>
             </select>
             <span class="invalid-feedback"><?= $category_err ?></span>

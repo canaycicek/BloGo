@@ -4,16 +4,21 @@ class Blog extends Db
     public function getBlogs()
     {
         $sql = "SELECT b.id,b.title,b.url,b.is_active,c.name
-         FROM blogs b INNER JOIN categories c ON b.category_id=c.id";
+        FROM blogs b INNER JOIN categories c ON b.category_id=c.id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public function getBlogById(int $id)
+    function getBlogById(int $id)
     {
-        $sql = "SELECT * FROM blogs WHERE id=$id";
+        $sql = "SELECT * FROM blogs
+                INNER JOIN categories ON blogs.category_id = categories.id
+                WHERE blogs.id = :id";
+        
         $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
+
         return $stmt->fetch();
     }
     public function createBlog(string $title, string $shortDescription, string $description, $category_id, string $url)
