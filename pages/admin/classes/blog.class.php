@@ -9,14 +9,12 @@ class Blog extends Db
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    function getBlogById(int $id)
+    public function getBlogById(int $id)
     {
-        $sql = "SELECT * FROM blogs
-                INNER JOIN categories ON blogs.category_id = categories.id
-                WHERE blogs.id = :id";
+        $sql = "SELECT b.id,b.title,b.short_description,b.description,b.url,b.is_active,c.id,c.name FROM blogs b INNER JOIN categories c ON b.category_id = c.id WHERE b.id = :id";
         
         $stmt = $this->connect()->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
 
         return $stmt->fetch();
@@ -28,7 +26,7 @@ class Blog extends Db
         $stmt->execute([$title, $shortDescription, $description, $category_id, $url]);
         return true;
     }
-    public function deleteBlog($id)
+    public function deleteBlog(int $id)
     {
         $sql = "DELETE FROM blogs WHERE id=:id";
         $stmt = $this->connect()->prepare($sql);

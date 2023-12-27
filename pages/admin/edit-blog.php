@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         && empty($category_err) && empty($url_err)
     ) {
         if ($blog->updateBlog($id, $title, $sdescription, $description, $category_id, $url, $is_active)) {
-            header("Location: blog-control.php");
+            header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/blog-control.php");
         } else {
             echo "hata";
         }
@@ -108,10 +108,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="mb-3 form-floating">
-            <input type="text" name="description" id="description" class="form-control
-            <?= (!empty($description_err)) ? 'is-invalid' : '' ?>" placeholder="Açıklama" value="<?= $result->description; ?>">
-            <label for="floatingInput" class="form-label">Açıklama</label>
-            <span class="invalid-feedback"><?php echo $description_err ?></span>
+            <h5>Açıklama</h5>
+            <textarea name="description" id="description" class="form-control<?= (!empty($description_err)) ? 'is-invalid' : '' ?>">
+                <?= $result->description; ?>
+            </textarea>
+            <span class="invalid-feedback"><?= $description_err ?></span>
         </div>
 
         <div class="form-group mb-3">
@@ -131,11 +132,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="floatingInput" class="form-label">Url</label>
             <span class="invalid-feedback"><?php echo $url_err ?></span>
         </div>
-
+        
         <div class="mb-3">
-            <input type="checkbox" name="is_active" id="is_active" <?php if ($result->is_active) {
-                                                                        echo "checked";
-                                                                    } ?>>
+            <input type="checkbox" name="is_active" id="is_active" <?php if ($result->is_active) {echo "checked";} ?>>
             <label for="is_active">Aktif</label>
         </div>
 

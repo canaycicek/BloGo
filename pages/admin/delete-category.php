@@ -5,20 +5,20 @@ include_once "views/_side-navbar.php";
 
 include_once "../../libs/connect.php";
 include_once "classes/blog.class.php";
+include_once "classes/category.class.php";
 include_once "classes/functions.class.php";
 ?>
 
-<?php $blog = new Blog(); ?>
-<?php $functions = new Functions(); ?>
+<?php $categories = new Category(); ?>
 
 
 <?php
 
     $id = $_GET["id"];
 
-    $blog->deleteBlog($id);
+    $categories->deleteCategory($id);
 
-    header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/blog-control.php");
+    header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/category-control.php");
 
 ?>
 

@@ -35,7 +35,7 @@ include_once "classes/category.class.php";
 
         if(empty($categoryname_err)){
             if($categories->createCategory($categoryname)){
-                header("Location: category-control.php");
+                header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/category-control.php");
             }else{
                 echo "hata";
             }

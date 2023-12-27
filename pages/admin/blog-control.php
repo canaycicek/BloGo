@@ -11,7 +11,7 @@ include_once "classes/functions.class.php";
 <?php $blog = new Blog(); ?>
 <?php $functions = new Functions(); ?>
 
-<?php if($blog->getBlogs()): ?>
+<?php if ($blog->getBlogs()) : ?>
 
     <div class="w-100 mx-5 mt-3">
         <div class="card mb-2">
@@ -32,16 +32,16 @@ include_once "classes/functions.class.php";
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-            <?php foreach($blog->getBlogs() as $item): ?>
+                <?php foreach ($blog->getBlogs() as $item) : ?>
                     <tr>
                         <th><?= $item->id ?></th>
                         <td><?= $item->title ?></td>
                         <td><?= $item->url ?></td>
                         <td><?= $item->name ?></td>
                         <td>
-                            <?php if($item->is_active == 1): ?>
+                            <?php if ($item->is_active == 1) : ?>
                                 <i class="fa-solid fa-check"></i>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <i class="fa-solid fa-xmark"></i>
                             <?php endif; ?>
                         </td>
@@ -50,12 +50,12 @@ include_once "classes/functions.class.php";
                             <a class="btn btn-danger" href="delete-blog.php?id=<?= $item->id ?>">Sil</a>
                         </td>
                     </tr>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 
-<?php else: ?>
+<?php else : ?>
 
     <div class="alert alert-warning">
         Blog bulunamadı!

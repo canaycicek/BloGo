@@ -64,6 +64,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $category = $functions->control_input($select_category);
     }
 
+    // validate image
+    $input_image = $_POST["image_url"];
+
+    if (empty($input_image)) {
+        $image_err = "Resim alanı boş geçilemez!";
+    } else {
+        $image_url = $functions->control_input($input_image);
+    }
+
+    
 
     // validate url
     $input_url = trim($_POST["url"]);
@@ -103,17 +113,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="mb-3 form-floating">
             <input type="text" name="sdescription" id="sdescription" class="form-control
-             <?= (!empty($sdescription_err)) ? 'is-invalid' : '' ?>"
-              placeholder="Kısa Açıklama" value="<?= $sdescription; ?>">
+             <?= (!empty($sdescription_err)) ? 'is-invalid' : '' ?>" placeholder="Kısa Açıklama" value="<?= $sdescription; ?>">
             <label for="floatingInput" class="form-label">Kısa Açıklama</label>
             <span class="invalid-feedback"><?= $sdescription_err ?></span>
         </div>
-
+        
+        <h5>Açıklama</h5>
         <div class="mb-3 form-floating">
-            <input type="text" name="description" id="description" class="form-control
-             <?= (!empty($description_err)) ? 'is-invalid' : '' ?>" placeholder="Açıklama"
-              value="<?= $description; ?>">
-            <label for="floatingInput" class="form-label">Açıklama</label>
+            <textarea name="description" id="description" class="form-control<?= (!empty($description_err)) ? 'is-invalid' : '' ?>">
+                <?= $description; ?>
+            </textarea>
             <span class="invalid-feedback"><?= $description_err ?></span>
         </div>
 
@@ -121,15 +130,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <select name="category" id="category" class="form-select form-select-lg
              <?= (!empty($category_err)) ? 'is-invalid' : '' ?>" aria-label="Large select example">
                 <option value="empty">Kategori Seçiniz</option>
-                <?php foreach ($categories->getCategories() as $item) : ?>
-                    <option value="<?= $item->id ?>"
-                     <?= (isset($_POST['category']) && $_POST['category'] == $item->id) ? 'selected' : '' ?>
-                     ><?= $item->name ?></option>
+                <?php foreach ($categories->getCategoriesByIsActive() as $item) : ?>
+                    <option value="<?= $item->id ?>" <?= (isset($_POST['category']) && $_POST['category'] == $item->id) ? 'selected' : '' ?>><?= $item->name ?></option>
                 <?php endforeach; ?>
             </select>
             <span class="invalid-feedback"><?= $category_err ?></span>
         </div>
 
+        <div class="mb-3">
+            <label for="floatingInput" class="form-label">Resim</label>
+            <input type="file" name="image_url" id="image_url" class="form-control form-control-lg <?= (!empty($image_err)) ? 'is-invalid' : '' ?>" value="<?= $image ?>">
+            <span class="invalid-feedback"><?= $image_err ?></span>
+        </div>
+            
         <div class="mb-3 form-floating">
             <input type="text" name="url" id="url" class="form-control
              <?= (!empty($url_err)) ? 'is-invalid' : '' ?>" placeholder="Url" value="<?= $url; ?>">

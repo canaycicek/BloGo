@@ -26,16 +26,16 @@ $functions = new Functions();
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="width: 70px;">#</th>
-                <th>Kategori İsmi</th>
-                <th style="width: 50px;">Aktiflik</th>
-                <th style="width: 150px;"></th>
+                <th scope="col" style="width: 70px;">#</th>
+                <th scope="col" >Kategori İsmi</th>
+                <th scope="col" style="width: 50px;">Aktiflik</th>
+                <th scope="col" style="width: 150px;"></th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
             <?php foreach ($categories->getCategories() as $item): ?>
                 <tr>
-                    <th><?= $item->id ?></th>
+                    <th scope="col"><?= $item->id ?></th>
                     <td><?= $item->name ?></td>
                     <td>
                         <?php if($item->is_active == 1): ?>
@@ -45,8 +45,8 @@ $functions = new Functions();
                         <?php endif; ?>
                     </td>
                     <td>
-                        <a class="btn btn-primary">Düzenle</a>
-                        <a class="btn btn-danger">Sil</a>
+                        <a class="btn btn-primary" href="edit-category.php?id=<?= $item->id ?>">Düzenle</a>
+                        <a class="btn btn-danger"href="delete-category.php?id=<?= $item->id ?>">Sil</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
