@@ -27,7 +27,7 @@ include_once "classes/category.class.php";
         if(empty($input_categoryname)){
             $categoryname_err = "Kategori adı alanı boş geçilemez!";
         }elseif(strlen($input_categoryname) > 10){
-            $categoryname_err = "Başlık alanı için çok fazla karakter girdiniz!";
+            $categoryname_err = "Kategori alanı için çok fazla karakter girdiniz!";
         }else{
             $categoryname = $functions->control_input($input_categoryname);
         }

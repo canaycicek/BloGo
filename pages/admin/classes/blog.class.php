@@ -3,7 +3,7 @@ class Blog extends Db
 {
     public function getBlogs()
     {
-        $sql = "SELECT b.id,b.title,b.url,b.is_active,c.name
+        $sql = "SELECT b.id,b.title,b.url,b.image_url,b.is_active,c.name
         FROM blogs b INNER JOIN categories c ON b.category_id=c.id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
@@ -11,19 +11,19 @@ class Blog extends Db
     }
     public function getBlogById(int $id)
     {
-        $sql = "SELECT b.id,b.title,b.short_description,b.description,b.url,b.is_active,c.id,c.name FROM blogs b INNER JOIN categories c ON b.category_id = c.id WHERE b.id = :id";
-        
+        $sql = "SELECT b.id,b.title,b.short_description,b.description,b.image_url,b.url,b.is_active,c.id,c.name FROM blogs b INNER JOIN categories c ON b.category_id = c.id WHERE b.id = :id";
+
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
         return $stmt->fetch();
     }
-    public function createBlog(string $title, string $shortDescription, string $description, $category_id, string $url)
+    public function createBlog(string $title, string $shortDescription, string $description, $category_id, string $image_url, string $url)
     {
-        $sql = "INSERT INTO blogs(title,short_description,description,category_id,url) VALUES (?,?,?,?,?)";
+        $sql = "INSERT INTO blogs(title,short_description,description,category_id,image_url,url) VALUES (?,?,?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$title, $shortDescription, $description, $category_id, $url]);
+        $stmt->execute([$title, $shortDescription, $description, $category_id, $image_url, $url]);
         return true;
     }
     public function deleteBlog(int $id)
@@ -38,17 +38,23 @@ class Blog extends Db
         string $short_description,
         string $description,
         string $category_id,
+        string $image_url,
         string $url,
         bool $is_active
     ) {
         $sql = "UPDATE blogs SET title=:title,
          short_description=:short_description,
-          description=:description, category_id=:category_id, url=:url, is_active=:is_active WHERE id=:id";
+          description=:description, category_id=:category_id, image_url=:image_url, url=:url, is_active=:is_active WHERE id=:id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([
-            'id' => $id, 'title' => $title,
+            'id' => $id,
+            'title' => $title,
             'short_description' => $short_description,
-            'description' => $description, 'category_id' => $category_id, 'url' => $url, 'is_active' => $is_active
+            'description' => $description,
+            'category_id' => $category_id,
+            'image_url' => $image_url,
+            'url' => $url,
+            'is_active' => $is_active
         ]);
         return true;
     }

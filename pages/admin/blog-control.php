@@ -24,6 +24,7 @@ include_once "classes/functions.class.php";
             <thead>
                 <tr>
                     <th style="width: 70px;">#</th>
+                    <th style="width: 150px;">Resim</th>
                     <th>Başlık</th>
                     <th>Url</th>
                     <th style="width: 100px;">Kategori</th>
@@ -35,6 +36,7 @@ include_once "classes/functions.class.php";
                 <?php foreach ($blog->getBlogs() as $item) : ?>
                     <tr>
                         <th><?= $item->id ?></th>
+                        <th><img class="img-fluid" src="<?= $_ENV["URL_PREFIX"]?>/assets/img/<?= $item->image_url ?>" alt="<?= $item->title ?>"></th>
                         <td><?= $item->title ?></td>
                         <td><?= $item->url ?></td>
                         <td><?= $item->name ?></td>

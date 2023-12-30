@@ -10,7 +10,7 @@
         private $password = null;
         private $dbName = null;
 
-        function __construct(){
+        public function __construct(){
             $this->host = $_ENV["HOSTNAME"];
             $this->user = $_ENV["USERNAME"];
             $this->password = $_ENV["PASSWORD"];
@@ -28,7 +28,7 @@
 
                 return $pdo;
             }
-            catch(PDOException $e){ 
+            catch(PDOException $e){
                 echo "bağlantı hatası: ".$e->getMessage();
             }
         }

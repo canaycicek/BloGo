@@ -1,41 +1,23 @@
 <div class="d-flex">
-    <div class="sideNav">
+    <div class="sideNav bg-black">
         <nav>
-            <div class="d-flex flex-column bg-black ps-2" style="width: max-content; height: 100vh;">
-                <a
-                    class="link-underline link-underline-opacity-0 link-light py-3"
-                    style="width: 13vw;"
-                    href="home.php">
+            <div class="d-flex flex-column ps-2" style="height: 100vh;">
+                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="home.php">
                     Home
                 </a>
-                <a
-                    class="link-underline link-underline-opacity-0 link-light py-3"
-                    style="width: 13vw;"
-                    href="blog-control.php">
+                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="blog-control.php">
                     Blog Kontrol
                 </a>
-                <a
-                    class="link-underline link-underline-opacity-0 link-light py-3"
-                    style="width: 13vw;"
-                    href="category-control.php">
+                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="category-control.php">
                     Kategori Kontrol
                 </a>
-                <a
-                    class="link-underline link-underline-opacity-0 link-light py-3"
-                    style="width: 13vw;"
-                    href="create-blog.php">
+                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="create-blog.php">
                     Blog Ekleme
                 </a>
-                <a
-                    class="link-underline link-underline-opacity-0 link-light py-3"
-                    style="width: 13vw;"
-                    href="create-category.php">
+                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="create-category.php">
                     Kategori Ekleme
                 </a>
-                <a
-                    class="link-underline link-underline-opacity-0 link-light py-3"
-                    style="width: 13vw;"
-                    href="rol.php">
+                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="rol.php">
                     Roller
                 </a>
 

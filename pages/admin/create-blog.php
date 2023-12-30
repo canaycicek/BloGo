@@ -20,6 +20,7 @@ $functions = new Functions();
 $title = $description = $sdescription = $image = $url = $category = "";
 $title_err = $description_err = $sdescription_err = $image_err = $url_err = $category_err = "";
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // validate title
@@ -65,16 +66,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // validate image
-    $input_image = $_POST["image_url"];
+    if (empty($_FILES["image"]["name"])){
+        $image_err = "Dosya seçim alanı boş geçilemez!";
+    }else{
+        $result = $functions->saveImage($_FILES["image"]);
 
-    if (empty($input_image)) {
-        $image_err = "Resim alanı boş geçilemez!";
-    } else {
-        $image_url = $functions->control_input($input_image);
+        if($result["isSuccess"] == 0){
+            $image_err = $result["message"];
+        }else{
+            $image = $functions->control_input($result["image"]);
+        }
     }
-
     
-
     // validate url
     $input_url = trim($_POST["url"]);
 
@@ -90,19 +93,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         && empty($description_err)
         && empty($url_err)
         && empty($category_err)
+        && empty($image_err)
     ) {
-        if ($blog->createBlog($title, $sdescription, $description, $category, $url)) {
+        if ($blog->createBlog($title, $sdescription, $description, $category, $image, $url)) {
             header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/blog-control.php");
         } else {
             echo "hata";
         }
     }
 }
-
 ?>
 
 <div class="w-100 d-flex justify-content-center">
-    <form class="w-50 my-3" action="" method="POST" novalidate>
+    <form class="w-50 my-3" action="" method="POST" enctype="multipart/form-data" novalidate>
 
         <div class="mb-3 form-floating">
             <input type="text" name="title" id="title" class="form-control
@@ -139,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="mb-3">
             <label for="floatingInput" class="form-label">Resim</label>
-            <input type="file" name="image_url" id="image_url" class="form-control form-control-lg <?= (!empty($image_err)) ? 'is-invalid' : '' ?>" value="<?= $image ?>">
+            <input type="file" name="image" id="image" class="form-control form-control-lg <?= (!empty($image_err)) ? 'is-invalid' : '' ?>">
             <span class="invalid-feedback"><?= $image_err ?></span>
         </div>
             
