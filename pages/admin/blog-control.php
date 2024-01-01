@@ -4,8 +4,8 @@ include_once "views/_navbar.php";
 include_once "views/_side-navbar.php";
 
 include_once "../../libs/connect.php";
-include_once "classes/blog.class.php";
-include_once "classes/functions.class.php";
+include_once "../classes/blog.class.php";
+include_once "../classes/functions.class.php";
 ?>
 
 <?php $blog = new Blog(); ?>

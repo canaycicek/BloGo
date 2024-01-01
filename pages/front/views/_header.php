@@ -8,6 +8,18 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/../../..');
 $dotenv->load();
 
 ?>
+<?php
+
+include_once "../../libs/connect.php";
+include_once "../classes/blog.class.php";
+include_once "../classes/category.class.php";
+include_once "../classes/functions.class.php";
+
+$blog = new Blog();
+$categories = new Category();
+$functions = new Functions();
+
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 

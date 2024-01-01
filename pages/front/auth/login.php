@@ -1,5 +1,7 @@
-<?php include_once "../views/_header.php"; ?>
-<?php include_once "../views/_navbar.php"; ?>
+<?php
+include_once "views/_header.php";
+include_once "views/_navbar.php";
+?>
 
 <!-- Login Page Start -->
 <div class="container mt-4" style="min-height: 100vh;">
@@ -37,4 +39,4 @@
 
 <!-- Login Page End -->
 
-<?php include_once "../views/_footer.php"; ?>
+<?php include_once "views/_footer.php"; ?>

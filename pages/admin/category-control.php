@@ -4,9 +4,9 @@ include_once "views/_navbar.php";
 include_once "views/_side-navbar.php";
 
 include_once "../../libs/connect.php";
-include_once "classes/blog.class.php";
-include_once "classes/functions.class.php";
-include_once "classes/category.class.php";
+include_once "../classes/blog.class.php";
+include_once "../classes/functions.class.php";
+include_once "../classes/category.class.php";
 ?>
 
 <?php
@@ -34,7 +34,7 @@ $functions = new Functions();
         </thead>
         <tbody class="table-group-divider">
             <?php foreach ($categories->getCategories() as $item): ?>
-                <tr>
+                <tr class="<?php if($item->deletedAdd !== null) {echo "table-danger";} else{echo "table-success";} ?>">
                     <th scope="col"><?= $item->id ?></th>
                     <td><?= $item->name ?></td>
                     <td>
@@ -45,8 +45,12 @@ $functions = new Functions();
                         <?php endif; ?>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="edit-category.php?id=<?= $item->id ?>">Düzenle</a>
-                        <a class="btn btn-danger"href="delete-category.php?id=<?= $item->id ?>">Sil</a>
+                        <?php if($item->deletedAdd == null): ?>
+                            <a class="btn btn-primary" href="edit-category.php?id=<?= $item->id ?>">Düzenle</a>
+                            <a class="btn btn-danger"href="delete-category.php?id=<?= $item->id ?>">Sil</a>
+                        <?php else: ?>
+                            <a class="btn btn-warning" href="restore.php?id=<?= $item->id ?>">Geri Yükle</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

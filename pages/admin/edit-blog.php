@@ -1,12 +1,8 @@
 <?php
-include_once "views/_header.php";
-include_once "views/_navbar.php";
-include_once "views/_side-navbar.php";
-
 include_once "../../libs/connect.php";
-include_once "classes/blog.class.php";
-include_once "classes/functions.class.php";
-include_once "classes/category.class.php";
+include_once "../classes/blog.class.php";
+include_once "../classes/functions.class.php";
+include_once "../classes/category.class.php";
 ?>
 
 <?php $blog = new Blog(); ?>
@@ -103,6 +99,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+?>
+
+<?php
+include_once "views/_header.php";
+include_once "views/_navbar.php";
+include_once "views/_side-navbar.php";
 ?>
 
 <div class="w-100 d-flex justify-content-center">

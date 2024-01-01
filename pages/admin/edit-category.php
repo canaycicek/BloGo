@@ -1,48 +1,50 @@
 <?php
-include_once "views/_header.php";
-include_once "views/_navbar.php";
-include_once "views/_side-navbar.php";
-
 include_once "../../libs/connect.php";
-include_once "classes/functions.class.php";
-include_once "classes/category.class.php";
+include_once "../classes/functions.class.php";
+include_once "../classes/category.class.php";
 ?>
 
 <?php $categories = new Category(); ?>
 <?php $functions = new Functions(); ?>
 
 <?php
+    $name = "";
+    $name_err = "";
 
-$name = "";
-$name_err = "";
+    $id = $_GET["id"];
+    $result = $categories->getCategoryById($id);
 
-$id = $_GET["id"];
-$result = $categories->getCategoryById($id);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+        // validate category
+        $input_category = $_POST["name"];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // validate category
-    $input_category = $_POST["name"];
-
-    if ($input_category == "") {
-        $name_err = "Kategori alanı boş geçilemez!";
-    } else {
-        $name = $functions->control_input($input_category);
-    }
-
-    $is_active = $functions->control_input(isset($_POST["is_active"]) ? 1 : 0);
-
-    if (
-        empty($name_err)
-    ) {
-        if ($categories->updateCategory($id, $name, $is_active)) {
-            header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/category-control.php");
+        if ($input_category == "") {
+            $name_err = "Kategori alanı boş geçilemez!";
         } else {
-            echo "hata";
+            $name = $functions->control_input($input_category);
+        }
+
+        $is_active = $functions->control_input(isset($_POST["is_active"]) ? 1 : 0);
+
+        if (
+            empty($name_err)
+        ) {
+            if ($categories->updateCategory($id, $name, $is_active)) {
+                header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/category-control.php");
+            } else {
+                echo "hata";
+            }
         }
     }
-}
+?>
+
+<?php
+
+include_once "views/_header.php";
+include_once "views/_navbar.php";
+include_once "views/_side-navbar.php";
+
 ?>
 <div class="w-100 d-flex justify-content-center">
     <form class="w-50 my-3" action="" method="POST" novalidate>
@@ -55,7 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="mb-3">
-            <input type="checkbox" name="is_active" id="is_active" <?php if ($result->is_active) {echo "checked";} ?>>
+            <input type="checkbox" name="is_active" id="is_active" <?php if ($result->is_active) {
+                                                                        echo "checked";
+                                                                    } ?>>
             <label for="is_active">Aktif</label>
         </div>
 

@@ -19,6 +19,19 @@ class Blog extends Db
 
         return $stmt->fetch();
     }
+    public function getBlogsByDate()
+    {
+        try {
+            $sql = "SELECT * FROM blogs WHERE is_active=1 ORDER BY dateAdded DESC";
+
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute();
+    
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            echo "Hata: " . $e->getMessage();
+        }
+    }
     public function createBlog(string $title, string $shortDescription, string $description, $category_id, string $image_url, string $url)
     {
         $sql = "INSERT INTO blogs(title,short_description,description,category_id,image_url,url) VALUES (?,?,?,?,?,?)";

@@ -1,6 +1,6 @@
 <?php
-include_once "../views/_header.php";
-include_once "../views/_navbar.php";
+include_once $_ENV["URL_PREFIX"]."/pages/front/views/_header.php";
+include_once $_ENV["URL_PREFIX"]."/pages/front/views/_navbar.php";
 ?>
 <!-- Register Page Start -->
 <div class="container mt-4" style="min-height: 100vh;">
@@ -46,4 +46,4 @@ include_once "../views/_navbar.php";
 </div>
 <!-- Register Page End -->
 
-<?php include_once "../views/_footer.php"; ?>
+<?php include_once $_ENV["URL_PREFIX"]."/pages/front/views/_footer.php"; ?>
