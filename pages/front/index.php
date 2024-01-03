@@ -34,8 +34,9 @@ $sliceHour = explode(":", $sliceDate[1])
 <div class="container">
     <img class="my-3 w-100" src="<?= $_ENV["URL_PREFIX"] ?>/assets/img/svg/header.svg" alt="Blogo">
 
-    <!-- Head Content Start -->
+    
     <div class="row">
+        <!-- Head Content Start -->
         <div class="col-6">
             <img class="img-fluid" src="<?= $_ENV["URL_PREFIX"] ?>/assets/img/<?= $result[0]->image_url ?>" alt="<?= $result[0]->title ?>">
         </div>
@@ -59,9 +60,10 @@ $sliceHour = explode(":", $sliceDate[1])
                 </p>
             </div>
             <div>
-                <button class="btn btn-primary">Daha fazla</button>
+                <a class="btn btn-primary" href="detail.php?id=<?= $result[0]->id ?>">Daha fazla</a>
             </div>
         </div>
+        <!-- Head Content End -->
 
         <hr class="my-4">
 
@@ -80,7 +82,7 @@ $sliceHour = explode(":", $sliceDate[1])
                     <img class="img-fluid w-100" src="<?= $_ENV["URL_PREFIX"] . "/assets/img/" . $item->image_url ?>" alt="<?= $item->title ?>">
                     <h3 class="text-light fs-4 mt-3"><?= $item->title ?></h3>
                     <p class="text-light fs-6"><?= $item->short_description ?>
-                        <a href="#" class="ms-1 link-secondary link-offset-2 link-underline-opacity-0 fw-light fst-italic">
+                        <a href="detail.php?id=<?= $item->id ?>" class="ms-1 link-secondary link-offset-2 link-underline-opacity-0 fw-light fst-italic">
                             ...daha fazla
                         </a>
                     </p>
@@ -101,7 +103,7 @@ $sliceHour = explode(":", $sliceDate[1])
         </div>
         <!-- Body Content End -->
     </div>
-    <!-- Head Content End -->
+    
 
 
 

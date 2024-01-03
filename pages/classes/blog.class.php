@@ -11,7 +11,7 @@ class Blog extends Db
     }
     public function getBlogById(int $id)
     {
-        $sql = "SELECT b.id,b.title,b.short_description,b.description,b.image_url,b.url,b.is_active,c.id,c.name FROM blogs b INNER JOIN categories c ON b.category_id = c.id WHERE b.id = :id";
+        $sql = "SELECT b.id,b.title,b.short_description,b.description,b.category_id,b.image_url,b.url,b.is_active,b.dateAdded,c.id,c.name FROM blogs b INNER JOIN categories c ON b.category_id = c.id WHERE b.id = :id";
 
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':id', $id);
@@ -23,6 +23,19 @@ class Blog extends Db
     {
         try {
             $sql = "SELECT * FROM blogs WHERE is_active=1 ORDER BY dateAdded DESC";
+
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute();
+    
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            echo "Hata: " . $e->getMessage();
+        }
+    }
+    public function getBlogsByCategory($categoryId)
+    {
+        try {
+            $sql = "SELECT * FROM blogs WHERE is_active=1 AND category_id=$categoryId ORDER BY dateAdded DESC";
 
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute();
@@ -55,9 +68,7 @@ class Blog extends Db
         string $url,
         bool $is_active
     ) {
-        $sql = "UPDATE blogs SET title=:title,
-         short_description=:short_description,
-          description=:description, category_id=:category_id, image_url=:image_url, url=:url, is_active=:is_active WHERE id=:id";
+        $sql = "UPDATE blogs SET title=:title,short_description=:short_description,description=:description, category_id=:category_id, image_url=:image_url, url=:url, is_active=:is_active WHERE id=:id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([
             'id' => $id,
