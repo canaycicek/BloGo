@@ -44,14 +44,16 @@ include_once "views/_navbar.php";
             <?php foreach ($blog->getBlogsByCategory($result->category_id) as $item): ?>
                 <?php $blogCount++ ?>
                 <div class="position-relative my-4">
-                    <div class="row g-0">
+                    <div class="row g-0 d-flex">
                         <div class="col-md-4">
-                            <img class="img-fluid w-100" src="<?= $_ENV["URL_PREFIX"] . "/assets/img/" . $item->image_url ?>" alt="<?= $item->title ?>">
+                            <img class="img-fluid" style="width: 130px; height: 130px; object-fit: cover;" src="<?= $_ENV["URL_PREFIX"] . "/assets/img/" . $item->image_url ?>" alt="<?= $item->title ?>">
                             <div class="position-absolute top-0 start-0 text-bg-warning d-flex align-items-center justify-content-center" style="width: 30px; height: 30px;"><?= $blogCount ?></div>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title"><?= $item->title ?></h5>
+                                <a class="link-body-emphasis" href="detail.php?id=<?= $item->id ?>">
+                                    <h5 class="card-title"><?= $item->title ?></h5>
+                                </a>
                                 <p class="card-text"><?= $item->short_description ?></p>
                                 <p class="card-text">
                                     <small class="text-body-secondary"></small>

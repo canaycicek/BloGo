@@ -9,7 +9,6 @@ $dotenv->load();
 
 ?>
 <?php
-
 include_once "../../libs/connect.php";
 include_once "../classes/blog.class.php";
 include_once "../classes/category.class.php";
@@ -33,3 +32,4 @@ $functions = new Functions();
 </head>
 
 <body>
+
