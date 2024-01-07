@@ -53,4 +53,20 @@ class Functions extends Db
             "image" => $newFileName
         ];
     }
+    public function controlUsername($username)
+    {
+        $sql = "SELECT * FROM users WHERE username=:username";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(":username", $username);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+    public function controlEmail($email)
+    {
+        $sql = "SELECT * FROM users WHERE email=:email";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
 }

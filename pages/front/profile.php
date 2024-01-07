@@ -1,7 +1,15 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['login_user'])){
+   header("location: login.php");
+}
+?>
+<?php
 include_once "views/_header.php";
 include_once "views/_navbar.php";
 ?>
+
 <!-- Profile Page Start -->
 <div class="container mt-4">
     <div class="d-flex flex-column justify-content-center align-items-center">

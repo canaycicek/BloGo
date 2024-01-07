@@ -56,7 +56,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= $_ENV["URL_PREFIX"] ?>/pages/front/auth/logout.php">
                     <i class="fa-solid fa-power-off"></i>
                     Çıkış Yap
                 </a>

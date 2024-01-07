@@ -1,15 +1,94 @@
 <?php
 include_once "../../../libs/connect.php";
-include_once "../../classes/blog.class.php";
 include_once "../../classes/category.class.php";
 include_once "../../classes/functions.class.php";
+include_once "../../classes/user.class.php";
 
-$blog = new Blog();
 $categories = new Category();
 $functions = new Functions();
+$user = new User();
 
 ?>
-<?php include_once "../views/_navbar.php";?>
+
+<?php
+
+$name = $username = $email = $password = $repassword = "";
+$name_err = $username_err = $email_err = $password_err = $repassword_err = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // validate name
+    $input_name = trim($_POST["name"]);
+
+    if (empty($input_name)) {
+        $name_err = "İsim alanı boş geçilemez!";
+    } elseif (strlen($input_name) > 50) {
+        $name_err = "İsim alanı için çok fazla karakter girdiniz!";
+    } elseif (strlen($input_name) < 3) {
+        $name_err = "İsim alanı için çok az karakter girdiniz!";
+    } else {
+        $name = $functions->control_input($input_name);
+    }
+
+    // validate username
+    $input_username = trim($_POST["username"]);
+
+    if (empty($input_username)) {
+        $username_err = "Kullanıcı Adı alanı boş geçilemez!";
+    } elseif (!preg_match('/^[A-Za-z][A-Za-z0-9]{5,31}$/', $input_username)) {
+        $username_err = "Kullanıcı Adı harf ile başlamalı, 5-31 karakterden, yalnızca harf ve rakamdan oluşmalı!";
+    } elseif ($functions->controlUsername($input_username)) {
+        $username_err = "Kullanıcı Adı daha önce alınmış. Tekrar deneyiniz!";
+    } else {
+        $username = $functions->control_input($input_username);
+    }
+
+    // validate email
+    $input_email = trim($_POST["email"]);
+
+    if (empty($input_email)) {
+        $email_err = "E-Mail alanı boş geçilemez!";
+    } elseif (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i', $input_email)) {
+        $email_err = "E-Mail hatalı!";
+    } elseif ($functions->controlEmail($input_email)) {
+        $email_err = "Kayıtlı E-Mail. Tekrar deneyiniz!";
+    } else {
+        $email = $functions->control_input($input_email);
+    }
+
+    // validate password
+    $input_password = trim($_POST["password"]);
+
+    if (empty($input_password)) {
+        $password_err = "Parola alanı boş geçilemez!";
+    } elseif (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,12}$/', $input_password)) {
+        $password_err = "Parola harf ve rakam içerebilir, en az 1 rakam ve 1 harf içermelidir, 8-12 karakter olmalıdır!";
+    } else {
+        $password = $functions->control_input($input_password);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    // validate repassword
+    $input_repassword = trim($_POST["repassword"]);
+
+    if (empty($input_repassword)) {
+        $repassword_err = "Parola Tekrar alanı boş geçilemez!";
+    } elseif ($input_repassword !== $input_password) {
+        $repassword_err = "Parola ile eşleşmiyor!";
+    } else {
+        $repassword = $functions->control_input($input_repassword);
+        $hashedRepassword = password_hash($repassword, PASSWORD_DEFAULT);
+    }
+
+    if(empty($name_err) && empty($username_err) && empty($email_err) && empty($password_err) && empty($repassword_err)){
+        if($user->createUser($name,$username,$email,$hashedPassword,$hashedRepassword)){
+            header("Location:". $_ENV["URL_PREFIX"]. "/pages/front/auth/login.php");
+        }else{
+            echo "hata";
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
@@ -23,53 +102,61 @@ $functions = new Functions();
     <title>Document</title>
 </head>
 
+<?php include_once "../views/_navbar.php"; ?>
+
 <body>
-<!-- Register Page Start -->
-<div class="container mt-4">
-    <div class="card mx-auto" style="width: 27rem;">
-        <div class="card-body">
-            <form action="" method="POST" novalidate>
-                <h1 class="p-0 mb-4">Kayıt Ol</h1>
 
-                <div class="mb-3 form-floating">
-                    <input type="text" name="name" id="name" class="form-control" placeholder="İsim">
-                    <label for="floatingInput" class="form-label">İsim</label>
-                </div>
+    <!-- Register Page Start -->
+    <div class="container mt-4">
+        <div class="card mx-auto" style="width: 27rem;">
+            <div class="card-body">
+                <form action="" method="POST" novalidate>
+                    <h1 class="p-0 mb-4">Kayıt Ol</h1>
 
-                <div class="mb-3 form-floating">
-                    <input type="text" name="username" id="username" class="form-control" placeholder="Kullanıcı Adı">
-                    <label for="floatingInput" class="form-label">Kullanıcı Adı</label>
-                </div>
+                    <div class="mb-3 form-floating">
+                        <input type="text" name="name" id="name" class="form-control <?= (!empty($name_err)) ? 'is-invalid' : '' ?>" placeholder="İsim" value="<?= $name; ?>">
+                        <label for="floatingInput" class="form-label">İsim</label>
+                        <span class="invalid-feedback"><?= $name_err ?></span>
+                    </div>
 
-                <div class="mb-3 form-floating">
-                    <input type="email" name="email" id="email" class="form-control" placeholder="E-Mail">
-                    <label for="floatingInput" class="form-label">E-Mail</label>
-                </div>
+                    <div class="mb-3 form-floating">
+                        <input type="text" name="username" id="username" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : '' ?>" placeholder="Kullanıcı Adı" value="<?= $username; ?>">
+                        <label for="floatingInput" class="form-label">Kullanıcı Adı</label>
+                        <span class="invalid-feedback"><?= $username_err ?></span>
+                    </div>
 
-                <div class="mb-3 form-floating">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Parola">
-                    <label for="floatingInput" class="form-label">Parola</label>
-                </div>
+                    <div class="mb-3 form-floating">
+                        <input type="email" name="email" id="email" class="form-control <?= (!empty($email_err)) ? 'is-invalid' : '' ?>" placeholder="E-Mail" value="<?= $email; ?>">
+                        <label for="floatingInput" class="form-label">E-Mail</label>
+                        <span class="invalid-feedback"><?= $email_err ?></span>
+                    </div>
 
-                <div class="mb-3 form-floating">
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Parola Tekrar">
-                    <label for="floatingInput" class="form-label">Parola Tekrar</label>
-                </div>
+                    <div class="mb-3 form-floating">
+                        <input type="password" name="password" id="password" class="form-control <?= (!empty($password_err)) ? 'is-invalid' : '' ?>" placeholder="Parola">
+                        <label for="floatingInput" class="form-label">Parola</label>
+                        <span class="invalid-feedback"><?= $password_err ?></span>
+                    </div>
 
-                <p>
-                    <a class="link-underline link-underline-opacity-0" href="login.php">Zaten bir hesabım var?</a>
-                </p>
+                    <div class="mb-3 form-floating">
+                        <input type="password" name="repassword" id="repassword" class="form-control <?= (!empty($repassword_err)) ? 'is-invalid' : '' ?>" placeholder="Parola Tekrar">
+                        <label for="floatingInput" class="form-label">Parola Tekrar</label>
+                        <span class="invalid-feedback"><?= $repassword_err ?></span>
+                    </div>
 
-                <button class="btn btn-primary w-100 py-2" type="submit">Kayıt Ol</button>
+                    <p>
+                        <a class="link-underline link-underline-opacity-0" href="login.php">Zaten bir hesabım var?</a>
+                    </p>
 
-            </form>
+                    <button class="btn btn-primary w-100 py-2" type="submit">Kayıt Ol</button>
+
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- Register Page End -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="<?= $_ENV["URL_PREFIX"] ?>/assets/script.js"></script>
+    <!-- Register Page End -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="<?= $_ENV["URL_PREFIX"] ?>/assets/script.js"></script>
 </body>
 
 </html>

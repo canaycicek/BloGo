@@ -13,10 +13,12 @@ include_once "../../libs/connect.php";
 include_once "../classes/blog.class.php";
 include_once "../classes/category.class.php";
 include_once "../classes/functions.class.php";
+include_once "../classes/user.class.php";
 
 $blog = new Blog();
 $categories = new Category();
 $functions = new Functions();
+$user = new User();
 
 ?>
 <!DOCTYPE html>

@@ -3,13 +3,55 @@ include_once "../../../libs/connect.php";
 include_once "../../classes/blog.class.php";
 include_once "../../classes/category.class.php";
 include_once "../../classes/functions.class.php";
+include_once "../../classes/user.class.php";
 
 $blog = new Blog();
 $categories = new Category();
 $functions = new Functions();
+$user = new User();
 
 ?>
-<?php include_once "../views/_navbar.php";?>
+
+<?php
+$username = $password = "";
+$username_err = $password_err = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    
+    // validate username
+    $input_username = trim($_POST["username"]);
+
+    if (empty($input_username)) {
+        $username_err = "Kullanıcı Adı alanı boş geçilemez!";
+    } else {
+        $username = $functions->control_input($input_username);
+    }
+
+    // validate password
+    $input_password = trim($_POST["password"]);
+
+    if (empty($input_password)) {
+        $password_err = "Parola alanı boş geçilemez!";
+    } else {
+        $rawPassword = $functions->control_input($input_password);
+    }
+    
+    // control login
+    $result = $user->authenticateUser($username, $rawPassword);
+    if($result){
+        header("Location:".$_ENV["URL_PREFIX"]."/pages/front/profile.php");
+
+        // How long will the cookie persist
+        $expirationTime = time() + (3600*12);
+
+        // Create cookie
+        setcookie("userLogin", $username, $expirationTime, '/');
+    }else{
+        echo "Kullanıcı girişi başarısız!";
+    }
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
@@ -23,6 +65,8 @@ $functions = new Functions();
     <title>Document</title>
 </head>
 
+<?php include_once "../views/_navbar.php";?>
+
 <body>
 
 <!-- Login Page Start -->
@@ -33,13 +77,15 @@ $functions = new Functions();
                 <h1 class="mb-4">Giriş Yap</h1>
 
                 <div class="form-floating mb-4">
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Kullanıcı Adı">
+                    <input type="text" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : '' ?>" name="username" id="username" placeholder="Kullanıcı Adı" value="<?= $username; ?>">
                     <label for="floatingInput">Kullanıcı Adı</label>
+                    <span class="invalid-feedback"><?= $username_err ?></span>
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Parola">
+                    <input type="password" name="password" class="form-control <?= (!empty($password_err)) ? 'is-invalid' : '' ?>" id="password" placeholder="Parola">
                     <label for="floatingPassword">Parola</label>
+                    <span class="invalid-feedback"><?= $password_err ?></span>
                 </div>
 
                 <p>
