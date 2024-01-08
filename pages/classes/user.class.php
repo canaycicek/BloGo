@@ -2,11 +2,50 @@
 
 class User extends Db
 {
+    public function getUsers()
+    {
+        $sql = "SELECT u.id,u.name,u.username,u.email,r.rol_name
+        FROM users u INNER JOIN roles r ON u.rol_id=r.id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public function getRoles()
+    {
+        $sql = "SELECT * FROM roles";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public function getUserById(int $id)
+    {
+        $sql = "SELECT u.id,u.name,u.username,u.email,u.rol_id,r.id,r.rol_name
+        FROM users u INNER JOIN roles r ON u.rol_id=r.id WHERE u.id=:id";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+    public function deleteUser(int $id)
+    {
+        $sql = "DELETE FROM users WHERE id=:id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute(['id' => $id]);
+    }
     public function createUser(string $name, string $username, string $email, $password, string $repassword)
     {
         $sql = "INSERT INTO users(name,username,email,password,repassword) VALUES (?,?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$name, $username, $email, $password, $repassword]);
+        return true;
+    }
+    public function updateUser(int $id, $rol_id)
+    {
+        $sql = "UPDATE users SET rol_id=:rol_id WHERE id=:id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute(['id' => $id, 'rol_id' => $rol_id]);
         return true;
     }
     private function checkUsernameExists($username)
