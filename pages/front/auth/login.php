@@ -16,6 +16,8 @@ $user = new User();
 $username = $password = "";
 $username_err = $password_err = "";
 
+
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // validate username
@@ -25,6 +27,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Kullanıcı Adı alanı boş geçilemez!";
     } else {
         $username = $functions->control_input($input_username);
+        $rolName = $user->getUserByUsername($username)->rol_name;
+        $name = $user->getUserByUsername($username)->name;
     }
 
     // validate password
@@ -46,11 +50,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Create cookie
         setcookie("userLogin", $username, $expirationTime, '/');
+        setcookie("loggedIn", true, $expirationTime, '/');
+        setcookie("userType", $rolName, $expirationTime, '/');
+        setcookie("name", $name, $expirationTime, '/');
     }else{
         echo "Kullanıcı girişi başarısız!";
     }
 }
-
 ?>
 
 <!DOCTYPE html>

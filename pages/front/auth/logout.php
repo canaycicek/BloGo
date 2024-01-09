@@ -1,7 +1,9 @@
 <?php
-   // Çıkış yap butonuna tıklandığında çalışacak kod
    setcookie('userLogin', '', time() - (3600*12), '/');
-   // Kullanıcıyı giriş sayfasına yönlendir veya başka bir sayfaya
+   setcookie('loggedIn', '', time() - (3600*12), '/');
+   setcookie('userType', '', time() - (3600*12), '/');
+   setcookie('name', '', time() - (3600*12), '/');
+
    header("Location: login.php");
    exit();
 ?>

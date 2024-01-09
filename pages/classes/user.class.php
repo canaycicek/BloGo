@@ -28,6 +28,17 @@ class User extends Db
 
         return $stmt->fetch();
     }
+    public function getUserByUsername(string $username)
+    {
+        $sql = "SELECT u.id,u.name,u.username,u.email,u.rol_id,r.id,r.rol_name
+        FROM users u INNER JOIN roles r ON u.rol_id=r.id WHERE u.username=:username";
+
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
     public function deleteUser(int $id)
     {
         $sql = "DELETE FROM users WHERE id=:id";
@@ -81,28 +92,23 @@ class User extends Db
             }
         }
     }
-    public function checkUserStatus()
-    {
-        if (!isset($_COOKIE['userLogin'])) {
-            
-            header("Location:". $_ENV["URL_PREFIX"]. "/pages/front/auth/login.php");
-            exit();
-        }
-    }
     public function isLoggedin()
     {
-        if (isset($_COOKIE["loggedin"]) && $_COOKIE["loggedin"] == true){
+        if (isset($_COOKIE["loggedIn"]) && $_COOKIE["loggedIn"]){
             return true;
-        }else{
-            return false;
+        }
+    }
+    public function isBloger()
+    {
+        if (($this->isLoggedin() && isset($_COOKIE["userType"])) && ($_COOKIE["userType"] == "admin" || $_COOKIE["userType"] == "bloger")){
+            return true;
         }
     }
     public function isAdmin()
     {
-        if (isLoggedin() && isset($_COOKIE["userType"]) && $_COOKIE["userType"] == "admin"){
+        if ($this->isLoggedin() && isset($_COOKIE["userType"]) && $_COOKIE["userType"] == "admin"){
             return true;
-        }else{
-            return false;
         }
     }
+    
 }

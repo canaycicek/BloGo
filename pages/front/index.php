@@ -33,7 +33,6 @@ $sliceHour = explode(":", $sliceDate[1])
 ?>
 <div class="container">
     <img class="my-3 w-100" src="<?= $_ENV["URL_PREFIX"] ?>/assets/img/svg/header.svg" alt="Blogo">
-
     
     <div class="row">
         <!-- Head Content Start -->

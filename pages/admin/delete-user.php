@@ -12,6 +12,6 @@ include_once "../classes/user.class.php";
 
     $user->deleteUser($id);
 
-    header("Location:".$_ENV["URL_PREFIX"]."/pages/admin/rol.php");
+    header("Location:".$_ENV["URL_PREFIX"]."/pages/admin/users.php");
 
 ?>

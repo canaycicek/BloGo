@@ -2,7 +2,6 @@
 include_once "views/_header.php";
 include_once "views/_navbar.php";
 ?>
-<?= $user->checkUserStatus() ?>
 <div class="container">
     <div class="row">
         <div class="col-12 d-flex flex-column justify-content-between row-gap-4 mt-4">

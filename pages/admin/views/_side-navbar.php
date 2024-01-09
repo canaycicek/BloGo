@@ -5,22 +5,23 @@
                 <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="home.php">
                     Home
                 </a>
-                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="blog-control.php">
-                    Blog Kontrol
-                </a>
-                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="category-control.php">
-                    Kategori Kontrol
-                </a>
+                <?php if($user->isAdmin()): ?>
+                    <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="blog-control.php">
+                        Blog Kontrol
+                    </a>
+                    <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="category-control.php">
+                        Kategori Kontrol
+                    </a>
+                    <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="users.php">
+                        Kullanıcılar
+                    </a>
+                    <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="create-category.php">
+                        Kategori Ekleme
+                    </a>
+                <?php endif; ?>
                 <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="create-blog.php">
                     Blog Ekleme
                 </a>
-                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="create-category.php">
-                    Kategori Ekleme
-                </a>
-                <a class="link-underline link-underline-opacity-0 link-light py-3" style="width: 13vw;" href="rol.php">
-                    Roller
-                </a>
-
             </div>
         </nav>
     </div>

@@ -1,11 +1,4 @@
 <?php
-session_start();
-
-if(!isset($_SESSION['login_user'])){
-   header("location: login.php");
-}
-?>
-<?php
 include_once "views/_header.php";
 include_once "views/_navbar.php";
 ?>
@@ -15,9 +8,19 @@ include_once "views/_navbar.php";
     <div class="d-flex flex-column justify-content-center align-items-center">
         <img src="https://picsum.photos/600?random=12968" class="img-fluid rounded-circle border border-success border-5 pp" alt="picture">
         <h1 class="mt-2">
-            Can Aycicek
+            <?= $_COOKIE["name"] ?>
         </h1>
-        <p class="fw-light">Admin | Bloger | Okuyucu</p>
+        <p class="fw-light">
+            <?php
+                if($_COOKIE["userType"] == "admin"){
+                    echo "Admin | Bloger | Okuyucu";
+                }elseif($_COOKIE["userType"] == "bloger"){
+                    echo "Bloger | Okuyucu";
+                }else{
+                    echo "Okuyucu";
+                }
+            ?>
+        </p>
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
             <button type="button" class="btn btn-warning">
                 <i class="fa-solid fa-key"></i>

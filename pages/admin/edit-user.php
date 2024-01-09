@@ -21,7 +21,7 @@ include_once "../classes/user.class.php";
         $rol_id = $functions->control_input($_POST["rol"]);
 
         if ($user->updateUser($id, $rol_id)) {
-            header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/rol.php");
+            header("Location:" . $_ENV["URL_PREFIX"] . "/pages/admin/users.php");
         } else {
             echo "hata";
         }
